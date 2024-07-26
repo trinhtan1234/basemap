@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "682842105678",
+    "project_id": "basemap-88186",
+    "storage_bucket": "basemap-88186.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:682842105678:android:934e87fb7a40c25b75e01f",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvqHrvoa2i5AiE9eAlNzJWmuk4FAfni7w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
