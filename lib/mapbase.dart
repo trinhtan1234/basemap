@@ -1,7 +1,10 @@
 import 'package:basemap/location_gps/location_service.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+
+import 'loaddata/firebase_service.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -16,21 +19,22 @@ class _MyHomePageState extends State<MyHomePage> {
   final LocationService _locationService = LocationService();
   double _currentZoom = 8.0;
   bool _isButtonVisible = true;
-
-  final List<Marker> _additionalMarkers = [
-    const Marker(
-      point: LatLng(21.028511, 105.804817),
-      child: Icon(
-        Icons.location_pin,
-        color: Colors.red,
-      ),
-    )
-  ];
+  List<Marker> _additionalMarkers = [];
 
   @override
   void initState() {
     super.initState();
+    _initializeFirebase();
     _currentPositionFuture = _locationService.getCurrentPositionFuture();
+  }
+
+  Future<void> _initializeFirebase() async {
+    await Firebase.initializeApp();
+    FirebaseService firebaseService = FirebaseService();
+    List<Marker> markers = await firebaseService.getMarkers();
+    setState(() {
+      _additionalMarkers = markers;
+    });
   }
 
   @override
@@ -100,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: FloatingActionButton(
               onPressed: () async {
                 setState(() {
-                  _isButtonVisible = false; //Hide the button
+                  _isButtonVisible = false; // Hide the button
                 });
                 await Future.delayed(
                     const Duration(milliseconds: 300)); // Wait for animation
